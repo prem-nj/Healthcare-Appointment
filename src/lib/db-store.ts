@@ -32,7 +32,7 @@ class MemoryDatabase {
     if (this.initialized) return;
     this.initialized = true;
 
-    const hash = "$2a$10$rN8vI94YI1Q9M9I6u8.1UuH64lS8g5E5q4xP3iA1J8H8G7F6E5D4C"; // Password@123456
+    const hash = bcrypt.hashSync('Password@123456', 10); // generate hash at startup
 
     // 1. Admin
     const adminUser = {

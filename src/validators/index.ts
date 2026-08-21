@@ -77,7 +77,7 @@ export const doctorLeaveSchema = z.object({
 
 // Slot Hold Schema
 export const slotHoldSchema = z.object({
-  doctorId: z.string().uuid("Invalid doctor ID"),
+  doctorId: z.string().nonempty("Doctor ID required"),
   startTime: z.string().refine((val) => !isNaN(Date.parse(val)), "Invalid start time"),
   durationMinutes: z.number().int().positive().optional(),
 });
@@ -93,10 +93,10 @@ export const symptomSubmissionSchema = z.object({
 
 // Appointment Booking Schema
 export const bookAppointmentSchema = z.object({
-  doctorId: z.string().uuid("Invalid doctor ID"),
+  doctorId: z.string().nonempty("Doctor ID required"),
   startTime: z.string().refine((val) => !isNaN(Date.parse(val)), "Invalid start time"),
   endTime: z.string().refine((val) => !isNaN(Date.parse(val)), "Invalid end time").optional(),
-  holdId: z.string().uuid().optional(),
+  holdId: z.string().nonempty("Hold ID required").optional(),
   symptoms: symptomSubmissionSchema,
 });
 
