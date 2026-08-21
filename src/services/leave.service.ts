@@ -24,7 +24,7 @@ export class LeaveService {
     }
 
     // 1. Transactional Leave Creation + Conflicted Appointment Cancellation
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // Create DoctorLeave record
       const leave = await tx.doctorLeave.create({
         data: {

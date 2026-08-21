@@ -56,7 +56,7 @@ export async function POST(
 
       return jsonSuccess({ summary: updated });
     } else if (type === "POST_VISIT" && appointment.consultation) {
-      const meds = appointment.prescription?.medications.map((m) => ({
+      const meds = appointment.prescription?.medications.map((m: any) => ({
         name: m.name,
         dosage: m.dosage,
         frequency: m.frequency,

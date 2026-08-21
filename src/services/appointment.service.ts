@@ -63,7 +63,7 @@ export class AppointmentService {
     }
 
     // Run database transaction
-    const appointment = await prisma.$transaction(async (tx) => {
+    const appointment = await prisma.$transaction(async (tx: any) => {
       // 1. Validate doctor exists, is active, and is accepting appointments
       const doctor = await tx.doctorProfile.findUnique({
         where: { id: input.doctorId },
@@ -87,7 +87,7 @@ export class AppointmentService {
       // 2. Validate doctor working hours for this day
       const dayOfWeek = start.getUTCDay();
       const workingHour = doctor.workingHours.find(
-        (wh) => wh.dayOfWeek === dayOfWeek && wh.isActive
+        (wh: any) => wh.dayOfWeek === dayOfWeek && wh.isActive
       );
 
       if (!workingHour) {
@@ -107,7 +107,7 @@ export class AppointmentService {
       }
 
       // 3. Validate doctor is not on leave
-      const isOnLeave = doctor.leaves.some((leave) => {
+      const isOnLeave = doctor.leaves.some((leave: any) => {
         const lStart = new Date(leave.startDate);
         const lEnd = new Date(leave.endDate);
         return lStart <= end && lEnd >= start;
@@ -325,7 +325,7 @@ export class AppointmentService {
     const slotDuration = appt.doctor.slotDurationMinutes || 30;
     const end = addMinutes(start, slotDuration);
 
-    const updated = await prisma.$transaction(async (tx) => {
+    const updated = await prisma.$transaction(async (tx: any) => {
       // Check conflict
       const conflict = await tx.appointment.findFirst({
         where: {
@@ -422,7 +422,7 @@ export class AppointmentService {
 
     this.validateStatusTransition(appt.status, newStatus);
 
-    const updated = await prisma.$transaction(async (tx) => {
+    const updated = await prisma.$transaction(async (tx: any) => {
       const res = await tx.appointment.update({
         where: { id: appointmentId },
         data: {

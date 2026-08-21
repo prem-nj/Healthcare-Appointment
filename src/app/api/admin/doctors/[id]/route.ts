@@ -21,7 +21,7 @@ export async function PATCH(
 
     if (!existingDoctor) return jsonError("Doctor not found", 404);
 
-    const updated = await prisma.$transaction(async (tx) => {
+    const updated = await prisma.$transaction(async (tx: any) => {
       if (validated.name || validated.phone || validated.isActive !== undefined) {
         await tx.user.update({
           where: { id: existingDoctor.userId },

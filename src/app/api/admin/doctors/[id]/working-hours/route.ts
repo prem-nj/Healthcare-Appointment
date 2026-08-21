@@ -20,7 +20,7 @@ export async function PUT(
     const body = await req.json();
     const validated = batchWorkingHoursSchema.parse(body);
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       for (const wh of validated.workingHours) {
         await tx.doctorWorkingHour.upsert({
           where: {

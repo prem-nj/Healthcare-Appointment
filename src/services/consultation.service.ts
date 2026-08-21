@@ -44,7 +44,7 @@ export class ConsultationService {
     }
 
     // 1. Transactional Database Save
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // Upsert Consultation
       const consultation = await tx.consultation.upsert({
         where: { appointmentId: input.appointmentId },

@@ -60,7 +60,7 @@ export class SlotService {
 
     // 1. Check working hours for this day of week
     const workingHour = doctor.workingHours.find(
-      (wh) => wh.dayOfWeek === dayOfWeek && wh.isActive
+      (wh: any) => wh.dayOfWeek === dayOfWeek && wh.isActive
     );
 
     if (!workingHour) {
@@ -71,7 +71,7 @@ export class SlotService {
     const queryStart = startOfDay(targetDate);
     const queryEnd = endOfDay(targetDate);
 
-    const isOnLeave = doctor.leaves.some((leave) => {
+    const isOnLeave = doctor.leaves.some((leave: any) => {
       const leaveStart = new Date(leave.startDate);
       const leaveEnd = new Date(leave.endDate);
       return leaveStart <= queryEnd && leaveEnd >= queryStart;
@@ -125,7 +125,7 @@ export class SlotService {
       const isPast = isBefore(currentSlotStart, now);
 
       // Check overlapping appointment
-      const isBooked = existingAppointments.some((appt) => {
+      const isBooked = existingAppointments.some((appt: any) => {
         return (
           (currentSlotStart >= appt.startTime && currentSlotStart < appt.endTime) ||
           (currentSlotEnd > appt.startTime && currentSlotEnd <= appt.endTime) ||
@@ -134,7 +134,7 @@ export class SlotService {
       });
 
       // Check overlapping active hold
-      const isHeld = activeHolds.some((hold) => {
+      const isHeld = activeHolds.some((hold: any) => {
         if (excludePatientId && hold.patientId === excludePatientId) {
           return false; // Patient holds this slot themselves
         }
